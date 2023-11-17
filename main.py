@@ -21,7 +21,8 @@ class Test_word(QtWidgets.QMainWindow):
         self.init_UI4()
 
     def start_helper1(self):
-        helper.start_help()
+        self.help = helper.Help_window(self)
+        self.help.show()
 
     def init_UI(self):
         self.setWindowTitle("Проверка слов")
@@ -89,7 +90,6 @@ class Test_word(QtWidgets.QMainWindow):
         return self.true_answer
 
     def init_UI4(self):
-        # m = helper.start_help()
         self.ui.pushButton_4.clicked.connect(self.start_helper1)
 
     def compair_answer(self):

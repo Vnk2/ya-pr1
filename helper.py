@@ -7,8 +7,8 @@ from ui2 import Ui_MainWindow
 
 class Help_window(QtWidgets.QMainWindow):
 
-    def __init__(self):
-        super(Help_window, self).__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.ui2 = Ui_MainWindow()
         self.ui2.setupUi(self)
         self.init_UIn()
@@ -27,7 +27,7 @@ class Help_window(QtWidgets.QMainWindow):
 
 #
 def start_help():
-    app = QtWidgets.QApplication([])
+    app = QtWidgets.QApplication(sys.argv)
     application2 = Help_window()
     application2.show()
     sys.exit(app.exec())
@@ -35,32 +35,35 @@ def start_help():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
