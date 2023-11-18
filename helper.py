@@ -24,8 +24,11 @@ class Help_window(QtWidgets.QMainWindow):
     1: Дозапись в словарик
     2: Проверка себя на знание слов, записанных в словарь"""
         self.ui2.main_inf_2.setText(text2)
+        with open("C:\\Users\\User\\Desktop\\ya_pr1\\wersion.txt", "r") as f:
+            m = f.read()
 
-#
+        self.ui2.main_inf_3.setText(f"Версия приложения - {m}")
+
 def start_help():
     app = QtWidgets.QApplication(sys.argv)
     application2 = Help_window()
@@ -33,37 +36,3 @@ def start_help():
     sys.exit(app.exec())
 
 
-
-
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#

@@ -96,6 +96,31 @@ color: white;</string>
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="main_inf_3">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>350</y>
+      <width>770</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#B0E0E6;
+color: white;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
