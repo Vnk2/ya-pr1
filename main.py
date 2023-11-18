@@ -175,7 +175,7 @@ class Add_in_list:
     def __init__(self, all_word, check_1):
         self.check_1 = check_1
         self.all_word = all_word
-        self.not_twice = 0
+        self.not_twice = []
         self.take = []
         self.m = []
         self.n = []
@@ -183,44 +183,41 @@ class Add_in_list:
 
     # Функция поиска повторений
     def find_twice(self, all_word_new):
-
-        self.not_twice = list(set(all_word_new))
-
-        for x in range(len(self.not_twice)):
-            if all_word_new.count(self.not_twice[x]) == 1:
-                self.g.append(self.not_twice[x])
-        return self.g
+        for x in range(len(all_word_new)):
+            if all_word_new[x] not in self.not_twice:
+                self.not_twice.append(all_word_new[x])
+        return self.not_twice
 
     # Функция проверки наличия слова в базе данных
     def check_in_bd(self):
         with sq.connect("words_save.db") as con:
             cur = con.cursor()
-            self.take = cur.execute("""SELECT word FROM save""").fetchall()
-            self.m = [self.all_word[x] for x in range(len(self.all_word)) if x not in self.take and x % 2 == 0]
-            return self.m
+            self.take = cur.execute("""SELECT word, translate FROM save""").fetchall()
+            new_word = []
+            for x in range(0, len(self.all_word), 2):
+                if (self.all_word[x], self.all_word[x + 1]) not in self.take:
+                    new_word.append([self.all_word[x], self.all_word[x + 1]])
+            return new_word
 
     # Функция добавления в бд
     def add_bd(self):
+
         if self.check_1 == 0:
             self.m = Add_in_list.check_in_bd(self)
+            print(self.m)
             self.n = Add_in_list.find_twice(self, self.m)
-
-            if len(self.m) == len(self.all_word) // 2 and len(self.n) == len(self.all_word) // 2:
-                for x in range(0, int(len(self.all_word)) // 2 + 3, 2):
-                    with sq.connect("words_save.db") as con:
-                        name = self.all_word[x]
-                        translate = self.all_word[x + 1]
-                        cur = con.cursor()
-                        print(f"INSERT INTO save VALUES('{name}', '{translate}')")
-                        cur.execute(f"INSERT INTO save VALUES('{name}', '{translate}')")
-            else:
-                with sq.connect("words_save.db") as con:
+            self.n = Add_in_list.check_nul(self, self.n)
+            for x in self.n:
+                with sq.connect("C:\\Users\\User\\Desktop\\ya_pr1\\words_save.db") as con:
+                    name = x[0]
+                    translate = x[1]
                     cur = con.cursor()
-                    self.take = cur.execute("""SELECT word FROM save""").fetchall()
-                    self.m = [x for x in self.all_word if x in self.take and x % 2 == 0]
+                    print(f"INSERT INTO save VALUES('{name}', '{translate}')")
+                    cur.execute(f"INSERT INTO save VALUES('{name}', '{translate}')")
 
+    def check_nul(self, finish_list):
+        for x in finish_list:
+            if x[0] != "" and x[1] != 0:
+                self.g.append(x)
 
-app = QtWidgets.QApplication([])
-application = Test_word()
-application.show()
-sys.exit(app.exec())
+        return self.g
